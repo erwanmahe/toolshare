@@ -106,7 +106,7 @@ export default function ToolsPage() {
   };
 
   if (username === null) {
-    return <Box sx={{ maxWidth: 600, mx: "auto", mt: 6 }}><Typography variant="h6">Not logged...</Typography></Box>;
+    return <Box sx={{ maxWidth: '100%', width: '100%', mx: "auto", mt: 6 }}><Typography variant="h6">Not logged...</Typography></Box>;
   }
 
   return (
@@ -114,7 +114,7 @@ export default function ToolsPage() {
       <Typography variant="subtitle1" color="secondary" sx={{ mb: 2 }}>
         Logged in as: {username}
       </Typography>
-      <Box sx={{ maxWidth: 600, mx: "auto", mt: 6 }}>
+      <Box sx={{ maxWidth: '100%', mx: "auto", mt: 6 }}>
       <Typography variant="h4" gutterBottom>Tool List</Typography>
       <Box display="flex" gap={2} mb={2}>
         <TextField label="Search" value={search} onChange={e => setSearch(e.target.value)} />
@@ -135,20 +135,27 @@ export default function ToolsPage() {
         <TextField label="Owner" value={owner} onChange={e => setOwner(e.target.value)} />
       </Box>
       <Button variant="contained" color="primary" onClick={() => handleOpenDialog()} sx={{ mb: 2 }} disabled={!username}>Add Tool</Button>
-      <Grid container spacing={3}>
-        {tools.map(tool => {
-          const isOwner = username === tool.owner;
-          return (
-            <Grid item xs={12} sm={6} md={4} key={tool.id}>
-              <Card
-                sx={isOwner ? {
-                  cursor: "pointer",
-                  transition: '0.2s',
-                  '&:hover': { boxShadow: 6, transform: 'scale(1.025)' }
-                } : { cursor: 'default' }}
-                onClick={isOwner ? () => handleOpenDialog(tool) : undefined}
-              >
-                <CardContent>
+      <Grid container spacing={3} justifyContent="flex-start" alignItems="stretch">
+  {tools.map(tool => {
+    const isOwner = username === tool.owner;
+    return (
+      <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={tool.id} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Card
+          sx={{
+            width: 300,
+            height: 180,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            ...(isOwner ? {
+              cursor: "pointer",
+              transition: '0.2s',
+              '&:hover': { boxShadow: 6, transform: 'scale(1.025)' }
+            } : { cursor: 'default' })
+          }}
+          onClick={isOwner ? () => handleOpenDialog(tool) : undefined}
+        >
+                <CardContent sx={{ width: '100%', height: '100%' }}>
                   <Box display="flex" alignItems="center" justifyContent="space-between">
                     <Typography variant="h6">{tool.name}</Typography>
                     <Box display="flex" gap={1}>
@@ -156,7 +163,16 @@ export default function ToolsPage() {
                       <Chip label={tool.type} color="primary" size="small" />
                     </Box>
                   </Box>
-                  <Typography variant="body2" color="text.secondary" mt={1} mb={1}>
+                  <Typography variant="body2" color="text.secondary" mt={1} mb={1} sx={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    maxHeight: 44, // ~2 lines
+                    position: 'relative',
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0) 70%, #fff 100%)',
+                  }}>
                     {tool.description}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
