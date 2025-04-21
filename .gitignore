@@ -38,4 +38,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Ignore cookie.txt files
+cookie.txt
 next-env.d.ts

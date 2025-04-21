@@ -51,7 +51,7 @@ export default function Home() {
       if (res.ok) {
         setOpenRegister(false);
         setRegisterValues({ username: "", password: "", confirm: "" });
-        router.push("/items");
+        router.push("/tools");
       } else {
         const data = await res.json();
         setRegisterApiError(data.error || "Registration failed");
@@ -72,7 +72,7 @@ export default function Home() {
       if (res.ok) {
         setOpenLogin(false);
         setLoginValues({ username: "", password: "" });
-        router.push("/items");
+        router.push("/tools");
       } else {
         const data = await res.json();
         setLoginError(data.error || "Login failed");

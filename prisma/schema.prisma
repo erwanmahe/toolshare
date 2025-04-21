@@ -15,8 +15,12 @@ model User {
   password String
 }
 
-model Item {
-  id          Int    @id @default(autoincrement())
-  name        String
+model Tool {
+  id     Int    @id @default(autoincrement())
+  name   String
+  owner  String
+  state  String // new, used, broken
+  type   String // general, painting, electricity, plumbing, ...
   description String?
+  @@map("tools")
 }
